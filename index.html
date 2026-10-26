@@ -1,0 +1,25 @@
+<!doctype html>
+<!-- スマホ検索の中継ページ：# の後ろの場所を、ファイルアプリで開く。# の後ろはサーバーへ送られない。2026-10-27 作成
+     # の後ろ：c/… ＝ iCloud Drive、o/… ＝ Obsidian（iCloud~md~obsidian/Documents） -->
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>ファイルアプリで開く</title>
+<style>body{font:17px -apple-system,sans-serif;margin:40px 16px;text-align:center}a{display:inline-block;padding:14px 24px;border-radius:10px;background:#2f6b3a;color:#fff;text-decoration:none}</style>
+</head><body>
+<p id="m">ファイルアプリを開きます…</p>
+<p><a id="b" href="#">ファイルアプリで開く</a></p>
+<script>
+const base = "shareddocuments:///private/var/mobile/Library/Mobile%20Documents/";
+const roots = { c: "com~apple~CloudDocs/", o: "iCloud~md~obsidian/Documents/" };
+const rel = decodeURIComponent(location.hash.slice(1));
+const k = rel.split("/")[0];
+if (roots[k]) {
+  const t = base + encodeURI(roots[k] + rel.slice(k.length + 1));
+  document.getElementById("b").href = t;
+  location.href = t;
+} else {
+  document.getElementById("m").textContent = "リンクが正しくありません";
+  document.getElementById("b").style.display = "none";
+}
+</script>
+</body></html>
